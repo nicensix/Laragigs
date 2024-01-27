@@ -11,7 +11,7 @@ class Listing extends Model
 
     
 
-    protected $fillable = ['title', 'company', 'location', 'website', 
+    protected $fillable = ['user_id','title', 'company', 'location', 'website', 
     'email', 'tags', 'logo', 'description'];
 public function scopeFilter($query, array $filters){
 if($filters['tag'] ?? false) {
@@ -23,4 +23,10 @@ if($filters['search'] ?? false) {
         ->orWhere('tags', 'like', '%'. request('search') .'%');
 }
 }
+
+// Relationship to user
+public function user()
+    {
+    return $this->belongsTo(User::class, 'user_id');
+    }
 }
